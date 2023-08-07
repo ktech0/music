@@ -5,6 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="APlayer.min.css">
     <title>My Music</title>
+    <style>
+        html, body {
+            height: 100%;
+        }
+        body{
+            display: flex;
+            flex-direction: column;
+        }
+        #tabs {
+            display: flex;
+            justify-content: space-between;
+            list-style: none;
+            padding: 0;
+            margin: 10px 5px;
+        }
+        #tabs li {
+            width: -webkit-fill-available;
+            text-align: center;
+            background-color: #f8f8f8;
+            padding: 5px 0;
+        }
+        #tabs li.active{
+            border: 2px dashed #f8f8f8;
+            background-color: white;
+        }
+        .aplayer.aplayer-withlist .aplayer-list {
+            display: flex;
+            flex-direction: column;
+            max-height: calc(100vh - 145px);
+        }
+    </style>
 </head>
 <body>
     <div id="error"></div>
@@ -22,10 +53,7 @@
             if(res.success){ err.style.display = 'none'; err.textContent   = ''; return res.data;}
             else{ err.style.display = 'block'; err.textContent   = res.msg; return null;}
         });}
-        const ap = new APlayer({
-            container: document.getElementById('aplayer'),
-            listMaxHeight: '100%',
-        });
+        const ap = new APlayer({ container: document.getElementById('aplayer'), listMaxHeight: '-' });
         
         class Tree {
             list = [];
@@ -49,7 +77,7 @@
             }
             Active(index) {
                 for (let i = 0; i < this.tabs.length; i++) {
-                    if(this.tabs[i].classList.contains("avtive")){
+                    if(this.tabs[i].classList.contains("active")){
                         this.tabs[i].classList.remove('active');
                     }
                 }
