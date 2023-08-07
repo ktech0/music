@@ -29,7 +29,7 @@
             tabs = [];
             tabsNode = null;
             Load(list) {
-                this.list = list;
+                this.list = list.map(subObj => { return subObj.child.map(item => item.info); });
                 this.tabsNode = document.getElementById("tabs");
                 this.tabsNode.addEventListener("click", e => {
                     if(e.target.nodeName == "LI"){
@@ -38,7 +38,7 @@
                         ap.list.add(this.Active(index));
                     }
                 });
-                this.tabs = this.list.map((item, i) => createLi(item.name, i));
+                this.tabs = list.map((item, i) => createLi(item.name, i));
                 for (let i = 0; i < this.tabs.length; i++) {
                     this.tabsNode.appendChild(this.tabs[i]);
                 }
@@ -48,7 +48,7 @@
                 this.tabsNode.innerHTML = '';
                 for (let i = 0; i < this.tabs.length; i++) {
                     if(this.tabs[i].classList.contains("avtive")){
-                        this.tabs
+                        this.tabs[i].classList.remove('active');
                     }
                 }
                 this.tabs[index].classList.add("active");
