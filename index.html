@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="APlayer.min.css">
+    <title>My Music</title>
+</head>
+<body>
+    <div id="error"></div>
+    <div class="content">
+        <ul id="tabs"></ul>
+    </div>
+    <div class="main">
+        <div class="player" id="aplayer"></div>
+    </div>
+    <script src="APlayer.min.js"></script>
+    <script type="text/javascript">
+        let err = document.getElementById("error");
+        const createLi = (name, index) => {let li = document.createElement('li'); li.textContent = name; li.dataset.index = index; return li;}
+        const request = (url) => {return fetch(url).then(res => res.json()).then(res => {
+            if(res.success){ err.style.display = 'none'; err.textContent   = ''; return res.data;}
+            else{ err.style.display = 'block'; err.textContent   = res.msg; return null;}
+        });}
+        const ap = new APlayer({container: document.getElementById('aplayer')});
+        let tree = new Tree();
+        class Tree {
+            list = [];
+            tabs = [];
+            tabsNode = null;
+            Load(list) {
+                this.list = list;
+                this.tabsNode = document.getElementById("tabs");
+                this.tabsNode.addEventListener("click", e => {
+                    if(e.target.nodeName == "LI"){
+                        let index = parseInt(e.target.data.index);
+                        ap.list.clear();
+                        ap.list.add(this.Active(index));
+                    }
+                });
+                this.tabs = this.list.map(ele, i => createLi(res[i].name, i));
+                for (let i = 0; i < this.tabs.length; i++) {
+                    this.tabsNode.appendChild(this.tabs[i]);
+                }
+            }
+            Active(index) {
+                this.tabsNode.innerHTML = '';
+                for (let i = 0; i < this.tabs.length; i++) {
+                    if(this.tabs[i].classList.contains("avtive")){
+                        this.tabs
+                    }
+                }
+                this.tabs[index].classList.add("active");
+                return this.list[index];
+            }
+        }
+        
+        request('/tree').then(res => { let list = tree.Load(res).Active(0); ap.list.clear(); ap.list.add(list); });
+    </script>
+</body>
+</html>
