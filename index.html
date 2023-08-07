@@ -23,7 +23,7 @@
             else{ err.style.display = 'block'; err.textContent   = res.msg; return null;}
         });}
         const ap = new APlayer({container: document.getElementById('aplayer')});
-        let tree = new Tree();
+        
         class Tree {
             list = [];
             tabs = [];
@@ -33,15 +33,16 @@
                 this.tabsNode = document.getElementById("tabs");
                 this.tabsNode.addEventListener("click", e => {
                     if(e.target.nodeName == "LI"){
-                        let index = parseInt(e.target.data.index);
+                        let index = parseInt(e.target.dataset.index);
                         ap.list.clear();
                         ap.list.add(this.Active(index));
                     }
                 });
-                this.tabs = this.list.map(ele, i => createLi(res[i].name, i));
+                this.tabs = this.list.map((item, i) => createLi(item.name, i));
                 for (let i = 0; i < this.tabs.length; i++) {
                     this.tabsNode.appendChild(this.tabs[i]);
                 }
+                return this;
             }
             Active(index) {
                 this.tabsNode.innerHTML = '';
@@ -54,8 +55,8 @@
                 return this.list[index];
             }
         }
-        
-        request('/tree').then(res => { let list = tree.Load(res).Active(0); ap.list.clear(); ap.list.add(list); });
+        let tree = new Tree();
+        request('/tree').then(all => { let list = tree.Load(all).Active(0); ap.list.clear(); ap.list.add(list); });
     </script>
 </body>
 </html>
