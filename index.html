@@ -22,7 +22,10 @@
             if(res.success){ err.style.display = 'none'; err.textContent   = ''; return res.data;}
             else{ err.style.display = 'block'; err.textContent   = res.msg; return null;}
         });}
-        const ap = new APlayer({container: document.getElementById('aplayer')});
+        const ap = new APlayer({
+            container: document.getElementById('aplayer'),
+            listMaxHeight: '100%',
+        });
         
         class Tree {
             list = [];
@@ -45,7 +48,6 @@
                 return this;
             }
             Active(index) {
-                this.tabsNode.innerHTML = '';
                 for (let i = 0; i < this.tabs.length; i++) {
                     if(this.tabs[i].classList.contains("avtive")){
                         this.tabs[i].classList.remove('active');
