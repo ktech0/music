@@ -80,11 +80,6 @@
             navigator.mediaSession.setActionHandler("pause", function () { ap.pause() });
             navigator.mediaSession.setActionHandler("previoustrack", function () { ap.skipBack() });
             navigator.mediaSession.setActionHandler("nexttrack", function () { ap.skipForward() });
-            let UA = navigator.userAgent.toLowerCase();
-            if (UA.indexOf('iphone')) {
-                navigator.mediaSession.setActionHandler("seekbackward", null);
-                navigator.mediaSession.setActionHandler("seekforward", null);
-            }
         }
 
         class Tree {
