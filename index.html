@@ -64,7 +64,7 @@
                 else { err.style.display = 'block'; err.textContent = res.msg; return null; }
             });
         }
-        const ap = new APlayer({ container: document.getElementById('aplayer'), listMaxHeight: '-' });
+        const ap = new APlayer({ container: document.getElementById('aplayer'), lrcType: 3, listMaxHeight: '-' });
 
         if ("mediaSession" in navigator) {
             ap.on('play', () => {
