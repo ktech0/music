@@ -19,8 +19,7 @@
         }
 
         #tabs {
-            display: flex;
-            justify-content: space-between;
+            display: grid;
             list-style: none;
             padding: 0;
             margin: 10px 5px;
@@ -100,6 +99,7 @@
                 for (let i = 0; i < this.tabs.length; i++) {
                     this.tabsNode.appendChild(this.tabs[i]);
                 }
+                this.tabsNode.style.gridTemplateColumns = 'repeat('+this.tabs.length+', minmax(0, 1fr))';
                 return this;
             }
             Active(index) {
